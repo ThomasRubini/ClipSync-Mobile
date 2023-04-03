@@ -63,3 +63,6 @@ yarn-error.log
 .metro-health-check*
 
 package-lock.json
+
+# expo files
+.expo
