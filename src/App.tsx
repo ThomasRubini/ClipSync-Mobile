@@ -80,8 +80,8 @@ function App(): JSX.Element {
             Edit <Text style={styles.highlight}>App.tsx</Text> to change this
             screen and then come back to see your edits.
           </Section>
-          <Section title="Voir tes changements">
-            <ReloadInstructions />
+          <Section title="Sign In Test">
+            <Text>Sign In</Text>
           </Section>
           <Section title="Voir tes changements">
             <ReloadInstructions />
