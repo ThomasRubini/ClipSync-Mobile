@@ -1,5 +1,4 @@
 import { View, Text } from 'react-native';
-import IconVector from 'react-native-vector-icons/FontAwesome5';
 import AClipElement from './AClipElement';
 
 export default class ClipElementRemote extends AClipElement {
@@ -15,7 +14,6 @@ export default class ClipElementRemote extends AClipElement {
                 <Text style={{fontSize:10,}}>{this.props.deviceName}</Text>
                 <Text style={{fontSize:10,}}>{this.props.timestamp}</Text>
             </View>
-            <IconVector name="clipboard" size={40} onPress={() => this.onCopy()} />
         </View>;
     }
 }

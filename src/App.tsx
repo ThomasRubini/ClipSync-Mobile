@@ -52,9 +52,9 @@ function App(): JSX.Element {
         <NavigationContainer>
             <Stack.Navigator>
                 {/*-------------------------------------------*/}
-                <Stack.Screen component={Auth} name="Authentification" options={{title: "Authentification"}} />
-                {/*-------------------------------------------*/}
                 <Stack.Screen component={Clip} name="Clipboards" options={{title: 'Clipboard'}}/>
+                {/*-------------------------------------------*/}
+                <Stack.Screen component={Auth} name="Authentification" options={{title: "Authentification"}} />
                 {/*-------------------------------------------*/}
             </Stack.Navigator>
         </NavigationContainer>
