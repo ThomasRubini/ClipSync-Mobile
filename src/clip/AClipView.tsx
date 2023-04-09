@@ -1,7 +1,6 @@
 import React from 'react';
-import { ScrollView, Text, Button } from 'react-native';
-import ClipList from './ClipList';
-
+import { Button } from 'react-native';
+import { clearUser } from '../redux/actions';
 
 export default abstract class AClipView extends React.Component<any, any> {
 
@@ -10,6 +9,13 @@ export default abstract class AClipView extends React.Component<any, any> {
         this.state = {
             clips: []
         }
+    }
+
+    getSignOutBtn() {
+        return <Button title="Sign out" onPress={() => {
+            console.log("logout");
+            this.props.store.dispatch(clearUser());
+        }} />
     }
 
     abstract getClips(): any;

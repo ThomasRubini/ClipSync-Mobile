@@ -21,44 +21,63 @@ import ClipViewLocal from './clip/ClipViewLocal';
 import ClipViewRemote from './clip/ClipViewRemote';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import SignUp from './auth/SignUp';
 import SignIn from './auth/SignIn';
+import SignUp from './auth/SignUp';
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
-function Clip() {
-    return (
-        <Tab.Navigator>
-            <Tab.Screen name="Local" options={{ title: 'local' }}>
-                {(props) => <ClipViewLocal navigation={props.navigation} type={"local"} />}
-            </Tab.Screen>
-            <Tab.Screen name="Remote" options={{ title: 'remote' }}>
-                {(props) => <ClipViewRemote navigation={props.navigation} type={"remote"} />}
-            </Tab.Screen>
-        </Tab.Navigator>
-    );
-}
+class App extends React.Component<any, any> {
 
-function Auth() {
-    return <Tab.Navigator>
-        <Tab.Screen component={SignIn} name="Login" options={{ title: 'Sign In' }} />
-        <Tab.Screen component={SignUp} name="Register" options={{ title: 'Sign Up' }} />
-    </Tab.Navigator>;
-}
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            token: "",
+            username: ""
+        }
+        store.subscribe(() => {
+            console.log("see a dispatch");
+            this.setState({ token: store.getState().userReducer.token})
+        });
+    }
 
-function App(): JSX.Element {
-    return (
-        <NavigationContainer>
-            <Stack.Navigator>
-                {/*-------------------------------------------*/}
-                <Stack.Screen component={Auth} name="Authentification" options={{title: "Authentification"}} />
-                {/*-------------------------------------------*/}
-                <Stack.Screen component={Clip} name="Clipboards" options={{title: 'Clipboard'}}/>
-                {/*-------------------------------------------*/}
-            </Stack.Navigator>
+    Auth() {
+        return <Provider store={store}>
+            <Tab.Navigator>
+                <Tab.Screen children={() => <SignIn store={store} />} name="Login" options={{ title: 'Connexion' }} />
+                <Tab.Screen children={() => <SignUp store={store} />} name="Register" options={{ title: 'Créer un compte' }} />
+            </Tab.Navigator>
+        </Provider>;
+    }
+
+    Clip() {
+        return (
+            <Tab.Navigator>
+                <Tab.Screen name="Local" options={{ title: 'local' }}>
+                    {(props) => <ClipViewLocal store={store} navigation={props.navigation} type={"local"} />}
+                </Tab.Screen>
+                <Tab.Screen name="Remote" options={{ title: 'distant' }}>
+                    {(props) => <ClipViewRemote store={store} navigation={props.navigation} type={"remote"} />}
+                </Tab.Screen>
+            </Tab.Navigator>
+        );
+    }
+
+    render(): React.ReactNode {
+        console.log("render app", store.getState());
+        console.log("app state", this.state);
+        return <NavigationContainer>
+            <Stack.Navigator>{
+                this.state.token === ""
+                    ?
+                    <Stack.Screen component={this.Auth} name="Authentication" options={{ title: "Authentification" }} />
+                    :
+                    <Stack.Screen component={this.Clip} name="Clipboards" options={{ title: 'Presse papiers' }} />
+            }</Stack.Navigator>
         </NavigationContainer>
-    );
+    };
 }
 
 const styles = StyleSheet.create({

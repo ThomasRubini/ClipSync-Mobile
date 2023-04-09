@@ -27,6 +27,7 @@ export default class ClipViewLocal extends AClipView {
         return <ScrollView>
             <Text style={{ fontWeight: 'bold', fontSize: 30, margin: 20 }}>{title}</Text>
             <ClipList type={this.props.type} clips={this.state.clips} />
+            {this.getSignOutBtn()}
         </ScrollView>;
     }
 }

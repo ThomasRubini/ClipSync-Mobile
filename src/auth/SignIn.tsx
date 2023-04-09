@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Button, TextInput } from 'react-native';
-
+import { setUser } from '../redux/actions';
 
 export default class SignIn extends React.Component<any, any> {
 
@@ -16,6 +16,15 @@ export default class SignIn extends React.Component<any, any> {
     }
 
     async signInFunction() {
+        const signInResponse = await fetch(
+            'https://notifysync.simailadjalim.fr/user?username=' + this.state.username + '&password=' + this.state.password,
+            { method: 'POST' }
+        );
+        const signInJson = await signInResponse.json();
+        if (signInJson.status === "ok") {
+            console.log(this.props.store);
+            this.props.store.dispatch(setUser(signInJson.token, this.state.username));
+        } else console.log(signInJson);
     }
 
     updateUsername(event: any) {
@@ -29,10 +38,10 @@ export default class SignIn extends React.Component<any, any> {
     render(): React.ReactNode {
         return (
             <View>
-                <Text>Sign In</Text>
-                <TextInput placeholder="Pseudo" value={this.state.username} onChange={this.updateUsername}/>
+                <Text>Connexion</Text>
+                <TextInput placeholder="Nom d'utilisateur" value={this.state.username} onChange={this.updateUsername}/>
                 <TextInput placeholder="Mot de Passe" value={this.state.password} onChange={this.updatePassword}/>
-                <Button title="Sign In" onPress={this.signInFunction} />
+                <Button title="Se connecter" onPress={this.signInFunction} />
             </View>
         );
     }
