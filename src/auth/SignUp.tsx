@@ -17,7 +17,7 @@ export default class SignUp extends React.Component<any, any> {
     }
 
     async signUpFunction() {
-        fetch('https://notifysync.simailadjalim.fr/user', {
+        const signInResponse = await fetch('https://notifysync.simailadjalim.fr/user', {
             method: 'PUT',
             headers: {
                 Accept: 'application/json',
@@ -28,6 +28,22 @@ export default class SignUp extends React.Component<any, any> {
                 password: this.state.password
             }),
         });
+        const signInJson = await signInResponse.json();
+        if (signInJson.status == "ok"){
+            const loginResponse = await fetch('https://notifysync.simailadjalim.fr/user', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: this.state.username,
+                    password: this.state.password
+                }),
+            });
+            const loginJson = await loginResponse.json(); 
+
+        }
     }
 
     updateUsername(event: any) {
