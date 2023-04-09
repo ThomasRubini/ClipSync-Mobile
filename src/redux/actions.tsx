@@ -10,3 +10,10 @@ export function clearUser() {
         type: "auth/disconnect"
     };
 }
+
+export function addToLocal(content: string) {
+    return {
+        type: "local/add",
+        payload: {content}
+    };
+}

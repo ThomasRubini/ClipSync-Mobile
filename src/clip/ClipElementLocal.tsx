@@ -10,7 +10,7 @@ export default class ClipElementLocal extends AClipElement {
 
     async sendToRemote() {
         const data = new FormData();
-        data.append("token", this.props.store.getState().userReducer.token);
+        data.append("token", this.props.store.getState().persistedUserReducer.token);
         data.append("content", this.props.content);
         data.append("deviceName", "TODOChangeThisMobileDevice");
         const sendToRemoteResponse = await fetch(

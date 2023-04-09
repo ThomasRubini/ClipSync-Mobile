@@ -10,7 +10,7 @@ export default class ClipViewRemote extends AClipView {
     }
 
     async getClips() {
-        const { data, status } = await axios.get("http://notifysync.simailadjalim.fr/clipboard?token=" + this.props.store.getState().userReducer.token);
+        const { data, status } = await axios.get("http://notifysync.simailadjalim.fr/clipboard?token=" + this.props.store.getState().persistedUserReducer.token);
         return Object.values(data['clipboard']);
     }
 

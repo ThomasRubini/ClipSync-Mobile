@@ -1,8 +1,12 @@
 import { createStore, combineReducers } from "redux";
 import { userReducer } from "./reducers";
+import { persistedUserReducer } from "./persistance"
+import { persistStore } from "redux-persist";
 
-export default createStore(
+export const store = createStore(
     combineReducers({
-        userReducer
+        persistedUserReducer
     })
 );
+
+export const persistor = persistStore(store);
