@@ -1,7 +1,7 @@
-export function setUser(token: string, username: string) {
+export function setUser(token: string) {
     return {
         type: "auth/connect",
-        payload: { token, username }
+        payload: { token }
     };
 }
 

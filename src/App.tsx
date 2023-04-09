@@ -38,7 +38,6 @@ class App extends React.Component<any, any> {
             username: ""
         }
         store.subscribe(() => {
-            console.log("see a dispatch");
             this.setState({ token: store.getState().userReducer.token });
         });
     }

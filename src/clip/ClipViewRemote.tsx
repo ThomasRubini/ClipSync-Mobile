@@ -10,7 +10,7 @@ export default class ClipViewRemote extends AClipView {
     }
 
     async getClips() {
-        const { data, status } = await axios.get("http://notifysync.simailadjalim.fr/clipboard?token=FFmkeNAxguFM5My52PhhzlOB_1ZwDr0ureD2kzuewMlhmJ6Ia6YkhcdZd1Nw4SXdLu9Ji0gzVYCfGCcgB8v8zQ");
+        const { data, status } = await axios.get("http://notifysync.simailadjalim.fr/clipboard?token=" + this.props.store.getState().userReducer.token);
         return Object.values(data['clipboard']);
     }
 
@@ -22,7 +22,6 @@ export default class ClipViewRemote extends AClipView {
 
     render(): JSX.Element {
         let title = "Remote Clipboard";
-        let notTitle = "Local Clipboard";
         return <ScrollView>
             <Text style={{ fontWeight: 'bold', fontSize: 30, margin: 20 }}>{title}</Text>
             <ClipList type={this.props.type} clips={this.state.clips} />

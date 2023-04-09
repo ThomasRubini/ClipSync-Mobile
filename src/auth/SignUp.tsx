@@ -18,19 +18,28 @@ export default class SignUp extends React.Component<any, any> {
     }
 
     async signUpFunction() {
+        const data = new FormData();
+        data.append("username", this.state.username);
+        data.append("password", this.state.password);
         const signUpResponse = await fetch(
-            'https://notifysync.simailadjalim.fr/user?username=' + this.state.username + '&password=' + this.state.password,
-            { method: 'PUT' }
+            'https://notifysync.simailadjalim.fr/user',
+            {
+                method: 'PUT',
+                body: data
+            }
         );
         const signUpJson = await signUpResponse.json();
         if (signUpJson.status === "ok") {
             const signInResponse = await fetch(
-                'https://notifysync.simailadjalim.fr/user?username=' + this.state.username + '&password=' + this.state.password,
-                { method: 'POST' }
+                'https://notifysync.simailadjalim.fr/user',
+                {
+                    method: 'POST',
+                    body: data
+                }
             );
             const signInJson = await signInResponse.json();
             if (signInJson.status === "ok") {
-                this.props.store.dispatch(setUser(signInJson.token, this.state.username));
+                this.props.store.dispatch(setUser(signInJson.token));
             } else console.log(signInJson);
         } else console.log(signUpJson);
     }

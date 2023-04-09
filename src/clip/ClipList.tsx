@@ -10,11 +10,11 @@ export default class ClipList extends React.Component<any, any> {
     }
 
     createClipElementLocal(content: string): JSX.Element {
-        return <ClipElementLocal content={content} />;
+        return <ClipElementLocal store={this.props.store} content={content} />;
     }
 
     createClipElementRemote(content: string, deviceName: string, timestamp: number): JSX.Element {
-        return <ClipElementRemote content={content} deviceName={deviceName} timestamp={timestamp} />;
+        return <ClipElementRemote store={this.props.store} content={content} deviceName={deviceName} timestamp={timestamp} />;
     }
 
     render(): JSX.Element {
