@@ -36,7 +36,7 @@ local.properties
 
 # vscode
 .vscode
-
+.history
 # node.js
 #
 node_modules/
