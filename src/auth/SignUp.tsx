@@ -30,7 +30,6 @@ export default class SignUp extends React.Component<any, any> {
             );
             const signInJson = await signInResponse.json();
             if (signInJson.status === "ok") {
-                console.log(this.props.store);
                 this.props.store.dispatch(setUser(signInJson.token, this.state.username));
             } else console.log(signInJson);
         } else console.log(signUpJson);
@@ -47,7 +46,7 @@ export default class SignUp extends React.Component<any, any> {
     render(): React.ReactNode {
         return (
             <View>
-                <Text>Créer un compte</Text>
+                <Text style={{ fontWeight: 'bold', fontSize: 30, margin: 20 }}>Créer un compte</Text>
                 <TextInput placeholder="Nom d'utilisateur" value={this.state.username} onChangeText={this.updateUsername} />
                 <TextInput placeholder="Mot de Passe" value={this.state.password} onChangeText={this.updatePassword} />
                 <Button title="S'enregistrer" onPress={this.signUpFunction} />

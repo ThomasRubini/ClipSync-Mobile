@@ -22,7 +22,6 @@ export default class SignIn extends React.Component<any, any> {
         );
         const signInJson = await signInResponse.json();
         if (signInJson.status === "ok") {
-            console.log(this.props.store);
             this.props.store.dispatch(setUser(signInJson.token, this.state.username));
         } else console.log(signInJson);
     }
@@ -38,7 +37,7 @@ export default class SignIn extends React.Component<any, any> {
     render(): React.ReactNode {
         return (
             <View>
-                <Text>Connexion</Text>
+                <Text style={{ fontWeight: 'bold', fontSize: 30, margin: 20 }}>Connexion</Text>
                 <TextInput placeholder="Nom d'utilisateur" value={this.state.username} onChange={this.updateUsername}/>
                 <TextInput placeholder="Mot de Passe" value={this.state.password} onChange={this.updatePassword}/>
                 <Button title="Se connecter" onPress={this.signInFunction} />

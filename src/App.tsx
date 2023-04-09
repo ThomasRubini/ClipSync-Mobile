@@ -39,7 +39,7 @@ class App extends React.Component<any, any> {
         }
         store.subscribe(() => {
             console.log("see a dispatch");
-            this.setState({ token: store.getState().userReducer.token})
+            this.setState({ token: store.getState().userReducer.token });
         });
     }
 
@@ -69,13 +69,26 @@ class App extends React.Component<any, any> {
         console.log("render app", store.getState());
         console.log("app state", this.state);
         return <NavigationContainer>
-            <Stack.Navigator>{
+            <Tab.Navigator>{
                 this.state.token === ""
                     ?
-                    <Stack.Screen component={this.Auth} name="Authentication" options={{ title: "Authentification" }} />
+                    ////////////////////////////////////////////////////////////
+                    <>
+                        <Tab.Screen children={() => <SignIn store={store} />} name="Login" options={{ title: 'Connexion' }} />
+                        <Tab.Screen children={() => <SignUp store={store} />} name="Register" options={{ title: 'Créer un compte' }} />
+                    </>
                     :
-                    <Stack.Screen component={this.Clip} name="Clipboards" options={{ title: 'Presse papiers' }} />
-            }</Stack.Navigator>
+                    ////////////////////////////////////////////////////////////
+                    <>
+                        <Tab.Screen name="Local" options={{ title: 'local' }}>
+                            {(props) => <ClipViewLocal store={store} navigation={props.navigation} type={"local"} />}
+                        </Tab.Screen>
+                        <Tab.Screen name="Remote" options={{ title: 'distant' }}>
+                            {(props) => <ClipViewRemote store={store} navigation={props.navigation} type={"remote"} />}
+                        </Tab.Screen>
+                    </>
+                    ////////////////////////////////////////////////////////////
+            }</Tab.Navigator>
         </NavigationContainer>
     };
 }

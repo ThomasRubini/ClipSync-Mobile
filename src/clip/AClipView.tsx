@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'react-native';
+import { Button, Text } from 'react-native';
 import { clearUser } from '../redux/actions';
 
 export default abstract class AClipView extends React.Component<any, any> {
@@ -13,7 +13,6 @@ export default abstract class AClipView extends React.Component<any, any> {
 
     getSignOutBtn() {
         return <Button title="Sign out" onPress={() => {
-            console.log("logout");
             this.props.store.dispatch(clearUser());
         }} />
     }
